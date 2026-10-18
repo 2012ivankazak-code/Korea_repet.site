@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корейский с Дарьей | Обучение</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ЦВЕТОВАЯ ПАЛИТРА --- */
+        :root {
+            --bordeaux: #6E1A2B; 
+            --bordeaux-light: #8a2036;
+            --pink: #FADADD;      
+            --gray-bg: #F8F8FA;   
+            --white: #FFFFFF;
+            --text: #2C2C2C;
+            --text-light: #6B6B6B;
+        }
+
+        /* --- БАЗОВЫЕ СТИЛИ --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--bordeaux);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        h1 { font-size: 2.6rem; line-height: 1.2; letter-spacing: -0.5px; }
+        h2 { font-size: 2rem; text-align: center; margin-bottom: 30px; letter-spacing: -0.5px; }
+        h3 { font-size: 1.3rem; }
+
+        p { margin-bottom: 15px; color: var(--text-light); font-size: 0.95rem; }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- АНИМАЦИИ --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- ЧЁТКИЙ ДЕКОР (Сакура) --- */
+        
+        /* Красный круг (Хиномару) */
+        .red-circle {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background-color: var(--pink);
+            border-radius: 50%;
+            opacity: 0.9;
+            z-index: 0;
+        }
+
+        /* Иероглифы (водяные знаки) */
+        .kanji-bg {
+            position: absolute;
+            font-family: 'Playfair Display', serif;
+            font-size: 12rem;
+            color: var(--bordeaux);
+            opacity: 0.05; 
+            z-index: 0;
+            pointer-events: none;
+            line-height: 1;
+            font-weight: 700;
+        }
+        .kanji-1 { top: 5%; right: -20px; }
+        .kanji-2 { bottom: 10%; left: -30px; }
+        .kanji-3 { top: 30%; left: 50%; transform: translateX(-50%); }
+
+        /* Ветви сакуры (SVG) */
+        .sakura-branch {
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+        
+        .branch-1 { top: -20px; right: -40px; width: 250px; transform: rotate(15deg); }
+        .branch-2 { top: 20%; left: -60px; width: 200px; transform: rotate(-20deg); }
+        .branch-3 { bottom: 10%; right: -50px; width: 220px; transform: rotate(160deg); }
+        .branch-4 { bottom: -30px; left: -40px; width: 180px; transform: rotate(10deg); }
+        .branch-5 { top: 40%; right: -70px; width: 200px; transform: rotate(-170deg); }
+        .branch-6 { top: 10%; left: 50%; width: 180px; transform: translateX(-50%) rotate(5deg); }
+
+        /* --- БЛОК 1: ГЛАВНАЯ --- */
+        .hero {
+            position: relative;
+            padding: 80px 0 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--white) 0%, var(--gray-bg) 100%);
+            overflow: hidden;
+        }
+        .hero .red-circle {
+            top: 30px;
+            left: -50px;
+        }
+        
+        .hero-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 { margin-top: 10px; }
+        .hero-subtitle {
+            font-size: 1.05rem;
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+        
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            background-color: var(--bordeaux);
+            color: var(--white);
+            padding: 16px 30px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 12px;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(110, 26, 43, 0.2);
+        }
+        .btn:hover {
+            background-color: var(--bordeaux-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(110, 26, 43, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--bordeaux);
+            color: var(--bordeaux);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--bordeaux);
+            color: var(--white);
+        }
+
+        /* --- БЛОК 2: КОМУ ПОДОЙДУТ --- */
+        .audience {
+            padding: 60px 0;
+            background-color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .card-small {
+            background: var(--white);
+            border: 1px solid #eee;
+            border-radius: 16px;
+            padding: 20px 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        .card-small:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .card-small .icon-circle {
+            width: 45px;
+            height: 45px;
+            background: var(--pink);
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bordeaux);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .card-small h3 { font-size: 1rem; margin-bottom: 8px; }
+        .card-small p { font-size: 0.85rem; margin-bottom: 0; }
+
+        /* --- БЛОК 3: ЧТО ВЫ ПОЛУЧИТЕ --- */
+        .results {
+            background-color: var(--gray-bg);
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .results-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .result-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border-left: 4px solid var(--bordeaux);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        .result-card:hover {
+            transform: translateX(5px);
+        }
+        .result-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        .result-text h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--bordeaux);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .result-text p {
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+
+        /* --- БЛОК 4: ПОЧЕМУ Я --- */
+        .why-me {
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .why-me-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .photo-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: #ddd;
+            border-radius: 20px;
+            background-image: url('photo2.jpg');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+        .photo-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--pink);
+            border-radius: 20px;
+            z-index: -1;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            background: var(--gray-bg);
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--bordeaux);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        /* --- БЛОК 5: ОТЗЫВЫ --- */
+        .reviews {
+            padding: 60px 0;
+            background-color: var(--white);
+            overflow: hidden;
+            position: relative;
+        }
+        .review-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+        .review-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 10px 0 30px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+        .review-slider::-webkit-scrollbar { display: none; }
+        
+        .review-card {
+            min-width: 85%;
+            background: var(--gray-bg);
+            padding: 25px;
+            border-radius: 20px;
+            scroll-snap-align: center;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+        }
+        .review-author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .author-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--pink);
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--bordeaux);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+        }
+        .stars {
+            color: #E5B25D;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        .review-text {
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .slider-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--bordeaux);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(110, 26, 43, 0.2);
+        }
+        .slider-btn:hover {
+            background: var(--bordeaux-light);
+            transform: scale(1.1);
+        }
+        .slider-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* --- БЛОК 6: ПРАЙС --- */
+        .pricing {
+            padding: 60px 0;
+            background-color: var(--gray-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        .price-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease;
+            z-index: 2;
+        }
+        .price-card:hover {
+            transform: translateY(-5px);
+        }
+        .price-card.popular {
+            border: 2px solid var(--bordeaux);
+        }
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            right: 25px;
+            background: var(--bordeaux);
+            color: var(--white);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .price-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--bordeaux);
+            margin: 15px 0;
+            font-family: 'Playfair Display', serif;
+        }
+        .price-value span {
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+        .price-features {
+            list-style: none;
+            margin: 25px 0;
+            font-size: 0.9rem;
+        }
+        .price-features li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text);
+        }
+        .price-features li::before {
+            content: '✓';
+            color: var(--bordeaux);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* --- БЛОК 7: КОНТАКТЫ --- */
+        .contacts {
+            padding: 60px 0 80px;
+            background-color: var(--bordeaux);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .contacts h2 { color: var(--white); }
+        .contacts p { color: rgba(255,255,255,0.8); }
+        
+        /* Корейский орнамент (внизу) */
+        .korean-pattern {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 35px 0;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .social-btn:hover {
+            background: var(--white);
+            color: var(--bordeaux);
+            transform: scale(1.1);
+        }
+        
+        .footer-note {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+        .footer-links {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+        .footer-links a {
+            color: var(--white);
+            text-decoration: underline;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        /* --- МОДАЛЬНЫЕ ОКНА (POPUP) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--white);
+            width: 90%;
+            max-width: 400px;
+            padding: 40px 30px;
+            border-radius: 25px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            text-align: center;
+            z-index: 1001;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: color 0.3s;
+        }
+        .close-modal:hover { color: var(--bordeaux); }
+        
+        .modal-content h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .modal-content p { font-size: 0.9rem; margin-bottom: 25px; }
+        .modal-content .form-group { margin-bottom: 15px; text-align: left; }
+        .modal-content input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: border 0.3s;
+        }
+        .modal-content input:focus {
+            outline: none;
+            border-color: var(--bordeaux);
+        }
+        
+        /* Текст политики */
+        .policy-text {
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+        .policy-text h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--bordeaux);
+            margin: 15px 0 5px;
+            font-size: 1rem;
+        }
+
+        /* --- COOKIE БАННЕР --- */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bordeaux);
+            color: var(--white);
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+        }
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+        .cookie-banner p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.8rem;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+        .cookie-banner .btn {
+            background: var(--white);
+            color: var(--bordeaux);
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+
+        /* --- АДАПТИВ --- */
+        @media (min-width: 768px) {
+            .container { max-width: 700px; }
+            .grid-2 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+            .why-me-flex { flex-direction: row; align-items: center; }
+            .photo-placeholder { width: 45%; height: 450px; }
+            .why-me-text { width: 55%; padding-left: 20px; }
+            .review-card { min-width: 45%; }
+            .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+            .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+            .cookie-banner { flex-direction: row; align-items: center; justify-content: space-between; padding: 15px 40px; }
+            .cookie-banner p { max-width: 70%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. ГЛАВНАЯ -->
+    <section class="hero fade-in">
+        <div class="red-circle"></div>
+        
+        <!-- Ветка сакуры -->
+        <svg class="sakura-branch branch-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 Q60,40 100,100 Q130,140 180,180" stroke="#6E1A2B" stroke-width="2.5" fill="none" opacity="0.6"/>
+            <path d="M100,100 Q120,80 150,70" stroke="#6E1A2B" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <path d="M60,50 Q70,30 90,20" stroke="#6E1A2B" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <g fill="#FADADD" opacity="0.9">
+                <circle cx="100" cy="100" r="5"/><circle cx="105" cy="95" r="4"/><circle cx="95" cy="95" r="4"/><circle cx="100" cy="90" r="4"/><circle cx="100" cy="105" r="4"/>
+                <circle cx="150" cy="70" r="4"/><circle cx="155" cy="65" r="3"/><circle cx="145" cy="65" r="3"/><circle cx="150" cy="60" r="3"/><circle cx="150" cy="75" r="3"/>
+                <circle cx="90" cy="20" r="4"/><circle cx="95" cy="15" r="3"/><circle cx="85" cy="15" r="3"/><circle cx="90" cy="10" r="3"/><circle cx="90" cy="25" r="3"/>
+                <circle cx="180" cy="180" r="5"/><circle cx="185" cy="175" r="4"/><circle cx="175" cy="175" r="4"/><circle cx="180" cy="170" r="4"/><circle cx="180" cy="185" r="4"/>
+                <circle cx="60" cy="50" r="3"/><circle cx="65" cy="45" r="2"/><circle cx="55" cy="45" r="2"/><circle cx="60" cy="40" r="2"/><circle cx="60" cy="55" r="2"/>
+            </g>
+        </svg>
+        
+        <svg class="sakura-branch branch-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M180,10 Q120,60 80,120 Q50,160 10,190" stroke="#6E1A2B" stroke-width="2.5" fill="none" opacity="0.5"/>
+            <path d="M80,120 Q60,100 30,90" stroke="#6E1A2B" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <g fill="#FADADD" opacity="0.8">
+                <circle cx="80" cy="120" r="5"/><circle cx="85" cy="115" r="4"/><circle cx="75" cy="115" r="4"/><circle cx="80" cy="110" r="4"/><circle cx="80" cy="125" r="4"/>
+                <circle cx="30" cy="90" r="4"/><circle cx="35" cy="85" r="3"/><circle cx="25" cy="85" r="3"/><circle cx="30" cy="80" r="3"/><circle cx="30" cy="95" r="3"/>
+                <circle cx="10" cy="190" r="5"/><circle cx="15" cy="185" r="4"/><circle cx="5" cy="185" r="4"/><circle cx="10" cy="180" r="4"/><circle cx="10" cy="195" r="4"/>
+            </g>
+        </svg>
+
+        <div class="kanji-bg kanji-1">花</div>
+
+        <div class="container hero-content">
+            <img src="photo1.jpg" alt="Дарья" class="hero-avatar">
+            <h1>Корейский язык с Дарьей</h1>
+            <p class="hero-subtitle">Мягкий, но динамичный подход к изучению языка. От новичков до продвинутого уровня. Занятия онлайн в удобном для вас темпе.</p>
+            <button class="btn open-modal">ЗАПИСАТЬСЯ НА ЗАНЯТИЕ</button>
+        </div>
+    </section>
+
+    <!-- 2. КОМУ ПОДОЙДУТ ЗАНЯТИЯ -->
+    <section class="audience fade-in">
+        <div class="kanji-bg kanji-2">水</div>
+        <svg class="sakura-branch branch-6" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 Q60,40 100,100 Q130,140 180,180" stroke="#6E1A2B" stroke-width="2" fill="none" opacity="0.4"/>
+            <g fill="#FADADD" opacity="0.7">
+                <circle cx="100" cy="100" r="4"/><circle cx="105" cy="95" r="3"/><circle cx="95" cy="95" r="3"/><circle cx="100" cy="90" r="3"/><circle cx="100" cy="105" r="3"/>
+                <circle cx="180" cy="180" r="4"/><circle cx="185" cy="175" r="3"/><circle cx="175" cy="175" r="3"/><circle cx="180" cy="170" r="3"/><circle cx="180" cy="185" r="3"/>
+            </g>
+        </svg>
+        <div class="container">
+            <h2>Кому подойдут занятия?</h2>
+            <div class="grid-2">
+                <div class="card-small">
+                    <div class="icon-circle">1</div>
+                    <h3>Новичкам</h3>
+                    <p>С нуля, без страха и зубрежки</p>
+                </div>
+                <div class="card-small">
+                    <div class="icon-circle">2</div>
+                    <h3>Для хобби</h3>
+                    <p>Для души, путешествий и дорам</p>
+                </div>
+                <div class="card-small">
+                    <div class="icon-circle">3</div>
+                    <h3>Для работы</h3>
+                    <p>Подготовка к TOPIK, бизнес-корейский</p>
+                </div>
+                <div class="card-small">
+                    <div class="icon-circle">4</div>
+                    <h3>Продолжающим</h3>
+                    <p>Преодоление плато и разговорная практика</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ЧТО ВЫ ПОЛУЧИТЕ -->
+    <section class="results fade-in">
+        <div class="kanji-bg kanji-3">木</div>
+        <svg class="sakura-branch branch-5" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M180,10 Q120,60 80,120 Q50,160 10,190" stroke="#6E1A2B" stroke-width="2" fill="none" opacity="0.5"/>
+            <g fill="#FADADD" opacity="0.8">
+                <circle cx="80" cy="120" r="5"/><circle cx="85" cy="115" r="4"/><circle cx="75" cy="115" r="4"/><circle cx="80" cy="110" r="4"/><circle cx="80" cy="125" r="4"/>
+                <circle cx="10" cy="190" r="5"/><circle cx="15" cy="185" r="4"/><circle cx="5" cy="185" r="4"/><circle cx="10" cy="180" r="4"/><circle cx="10" cy="195" r="4"/>
+            </g>
+        </svg>
+        <div class="container">
+            <h2>Что вы получите от занятий?</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-icon"></div>
+                    <div class="result-text">
+                        <h4>Индивидуальный план</h4>
+                        <p>Программа подстраивается под ваши цели и темп</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-icon"></div>
+                    <div class="result-text">
+                        <h4>Разговорная речь</h4>
+                        <p>Уверенное общение без страха ошибок</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-icon"></div>
+                    <div class="result-text">
+                        <h4>Понимание грамматики</h4>
+                        <p>Без скучной зубрежки, через логику и практику</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-icon"></div>
+                    <div class="result-text">
+                        <h4>Гибкий график</h4>
+                        <p>Поддержка 24/7 и удобная платформа для занятий</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn open-modal">ОТПРАВИТЬ ЗАЯВКУ</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ПОЧЕМУ ВЫБИРАЮТ МЕНЯ -->
+    <section class="why-me fade-in">
+        <svg class="sakura-branch branch-3" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 Q60,40 100,100 Q130,140 180,180" stroke="#6E1A2B" stroke-width="2.5" fill="none" opacity="0.5"/>
+            <path d="M100,100 Q120,80 150,70" stroke="#6E1A2B" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <g fill="#FADADD" opacity="0.8">
+                <circle cx="100" cy="100" r="5"/><circle cx="105" cy="95" r="4"/><circle cx="95" cy="95" r="4"/><circle cx="100" cy="90" r="4"/><circle cx="100" cy="105" r="4"/>
+                <circle cx="150" cy="70" r="4"/><circle cx="155" cy="65" r="3"/><circle cx="145" cy="65" r="3"/><circle cx="150" cy="60" r="3"/><circle cx="150" cy="75" r="3"/>
+                <circle cx="180" cy="180" r="5"/><circle cx="185" cy="175" r="4"/><circle cx="175" cy="175" r="4"/><circle cx="180" cy="170" r="4"/><circle cx="180" cy="185" r="4"/>
+            </g>
+        </svg>
+        <div class="container">
+            <h2>Почему выбирают меня?</h2>
+            <div class="why-me-flex">
+                <div class="photo-placeholder"></div>
+                <div class="why-me-text">
+                    <p><strong>Меня зовут Дарья.</strong> Я преподаватель корейского языка с опытом работы в культурном центре Посольства Республики Корея в России.</p>
+                    <p>Мой подход — это баланс между академическими знаниями и живым, шутливым общением. Я объясняю сложные вещи простыми словами и всегда на связи.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">лет опыта</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">довольных учеников</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. ОТЗЫВЫ -->
+    <section class="reviews fade-in">
+        <svg class="sakura-branch branch-4" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M180,10 Q120,60 80,120 Q50,160 10,190" stroke="#6E1A2B" stroke-width="2" fill="none" opacity="0.4"/>
+            <g fill="#FADADD" opacity="0.7">
+                <circle cx="80" cy="120" r="4"/><circle cx="85" cy="115" r="3"/><circle cx="75" cy="115" r="3"/><circle cx="80" cy="110" r="3"/><circle cx="80" cy="125" r="3"/>
+                <circle cx="10" cy="190" r="4"/><circle cx="15" cy="185" r="3"/><circle cx="5" cy="185" r="3"/><circle cx="10" cy="180" r="3"/><circle cx="10" cy="195" r="3"/>
+            </g>
+        </svg>
+        <div class="container">
+            <h2>Отзывы</h2>
+            <div class="review-wrapper">
+                <div class="review-slider" id="reviewSlider">
+                    <div class="review-card">
+                        <div class="review-author">
+                            <div class="author-avatar">М</div>
+                            <div>
+                                <strong>Мария Мягашева</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="review-text">«Дарья — прекрасный преподаватель по корейскому. На первом занятии было волнительно, но Дарья развеяла это волнение с первых минут урока своей добротой и улыбчивостью. Занимаемся уже больше месяца, интересно и сложно одновременно, постоянно на связи и всегда готова помочь. А тг-канал со всякими корейскими штучками — вообще вау!»</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-author">
+                            <div class="author-avatar">Д</div>
+                            <div>
+                                <strong>Дана</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="review-text">«Прекрасный репетитор!! Объясняет все доходчиво, если есть вопросы всегда можно написать и уточнить. Домашнее задание помогает отработать пройденную тему, если есть ошибки разбираем на уроке. Всем рекомендую!»</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-author">
+                            <div class="author-avatar">А</div>
+                            <div>
+                                <strong>Арина Кутузова</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="review-text">«Каждое занятие супер крутое и интересное и веселое, мне оооочень нравится! У меня корейский как хобби больше и я их часто меняю обычно, но с сонсеним и уроки настолько крутые, что вообще не хочется останавливаться, а только больше заниматься. Мой отзыв за больше чем полгода занятий!»</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-author">
+                            <div class="author-avatar">Ж</div>
+                            <div>
+                                <strong>Жанна</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="review-text">«Дарья — прекрасный репетитор/учитель по корейскому! Я прошла только 2 занятия, НО с Дарьей вы научитесь многому, даже после двух занятий. Пробный урок достаточно интересный, можно увидеть, как объясняют материал. Именно пробный урок помог мне наконец-то выбрать себе «наставника» и погрузиться в корейский!»</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-author">
+                            <div class="author-avatar">П</div>
+                            <div>
+                                <strong>Павел</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="review-text">«Девушка Дарья очень милая и доброжелательная!!! Всегда поможет и подскажет то, что вас интересует. С ней очень комфортно заниматься корейским ❤️»</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-author">
+                            <div class="author-avatar">Т</div>
+                            <div>
+                                <strong>Твой психолог и коуч</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="review-text">«Начала заниматься с Дашей. Очень понравился формат, подача материала. Даша на связи в переписке, гибкий график с окошками, подстраиваюсь под свой ритм. И корейский не вызывает прям сильного сопротивления. Мне тяжело даётся пока что. Но как раз дашин мягкий, но динамичный подход меня только мотивирует не сдаваться. И платформа, на которой созваниваемся удобная. И современная. Очень рекомендую Дарью!»</p>
+                    </div>
+                </div>
+                <div class="slider-nav">
+                    <button class="slider-btn" id="prevBtn">&#8592;</button>
+                    <button class="slider-btn" id="nextBtn">&#8594;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. ПРАЙС -->
+    <section class="pricing fade-in">
+        <div class="kanji-bg kanji-2" style="bottom: 10%; left: 10%;">語</div>
+        <svg class="sakura-branch branch-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,10 Q60,40 100,100 Q130,140 180,180" stroke="#6E1A2B" stroke-width="2" fill="none" opacity="0.4"/>
+            <g fill="#FADADD" opacity="0.7">
+                <circle cx="100" cy="100" r="4"/><circle cx="105" cy="95" r="3"/><circle cx="95" cy="95" r="3"/><circle cx="100" cy="90" r="3"/><circle cx="100" cy="105" r="3"/>
+                <circle cx="180" cy="180" r="4"/><circle cx="185" cy="175" r="3"/><circle cx="175" cy="175" r="3"/><circle cx="180" cy="170" r="3"/><circle cx="180" cy="185" r="3"/>
+            </g>
+        </svg>
+        <div class="container">
+            <h2>Тарифы</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Индивидуальные</h3>
+                    <div class="price-value">2 000 ₽ <span>/ 55 мин</span></div>
+                    <ul class="price-features">
+                        <li>Персональная программа</li>
+                        <li>Гибкий график</li>
+                        <li>Максимум внимания</li>
+                    </ul>
+                    <button class="btn btn-outline open-modal">ЗАПИСАТЬСЯ</button>
+                </div>
+                <div class="price-card popular">
+                    <div class="popular-badge">ВЫГОДНО</div>
+                    <h3>Абонемент 8 занятий</h3>
+                    <div class="price-value">15 000 ₽</div>
+                    <ul class="price-features">
+                        <li>Индивидуальные занятия</li>
+                        <li>Экономия 1000 ₽</li>
+                        <li>Закрепление результата</li>
+                    </ul>
+                    <button class="btn open-modal">ЗАПИСАТЬСЯ</button>
+                </div>
+                <div class="price-card">
+                    <h3>Групповые (мини-группа)</h3>
+                    <div class="price-value">700 ₽ <span>/ 55 мин</span></div>
+                    <ul class="price-features">
+                        <li>До 6 человек</li>
+                        <li>Разговорная практика</li>
+                        <li>Весело и полезно</li>
+                    </ul>
+                    <button class="btn btn-outline open-modal">ЗАПИСАТЬСЯ</button>
+                </div>
+                <div class="price-card">
+                    <h3>Абонемент 4 занятия</h3>
+                    <div class="price-value">7 300 ₽</div>
+                    <ul class="price-features">
+                        <li>Индивидуальные занятия</li>
+                        <li>Экономия 700 ₽</li>
+                        <li>Старт в любое время</li>
+                    </ul>
+                    <button class="btn btn-outline open-modal">ЗАПИСАТЬСЯ</button>
+                </div>
+                <div class="price-card">
+                    <h3>Абонемент 8 занятий (группа)</h3>
+                    <div class="price-value">5 200 ₽</div>
+                    <ul class="price-features">
+                        <li>Групповые занятия</li>
+                        <li>Выгодное предложение</li>
+                        <li>Регулярная практика</li>
+                    </ul>
+                    <button class="btn btn-outline open-modal">ЗАПИСАТЬСЯ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. КОНТАКТЫ И СОЦ СЕТИ -->
+    <section class="contacts fade-in" id="contact">
+        <!-- Корейский орнамент (теперь чётко внизу) -->
+        <svg class="korean-pattern" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,60 L0,30 Q20,15 40,30 Q60,15 80,30 Q100,15 120,30 Q140,15 160,30 Q180,15 200,30 Q220,15 240,30 Q260,15 280,30 Q300,15 320,30 Q340,15 360,30 Q380,15 400,30 Q420,15 440,30 Q460,15 480,30 Q500,15 520,30 Q540,15 560,30 Q580,15 600,30 Q620,15 640,30 Q660,15 680,30 Q700,15 720,30 Q740,15 760,30 Q780,15 800,30 Q820,15 840,30 Q860,15 880,30 Q900,15 920,30 Q940,15 960,30 Q980,15 1000,30 Q1020,15 1040,30 Q1060,15 1080,30 Q1100,15 1120,30 Q1140,15 1160,30 Q1180,15 1200,30 Q1220,15 1240,30 Q1260,15 1280,30 Q1300,15 1320,30 Q1340,15 1360,30 Q1380,15 1400,30 Q1420,15 1440,30 L1440,60 Z" fill="#FFFFFF" opacity="0.3"/>
+            <circle cx="40" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="120" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="200" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="280" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="360" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="440" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="520" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="600" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="680" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="760" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="840" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="920" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="1000" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="1080" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="1160" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="1240" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="1320" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+            <circle cx="1400" cy="30" r="5" fill="#FADADD" opacity="0.6"/>
+        </svg>
+        
+        <div class="container">
+            <h2>Свяжитесь со мной</h2>
+            <p>Оставьте заявку, и я свяжусь с вами в ближайшее время</p>
+            
+            <div class="social-links">
+                <a href="https://t.me/ddar_design" target="_blank" class="social-btn" title="Telegram">TG</a>
+                <a href="https://www.instagram.com/soft.korean_darya?vrfl=a3loOXkxeGozcG9n" target="_blank" class="social-btn" title="Instagram">IG</a>
+                <a href="https://vk.ru/ddar_design" target="_blank" class="social-btn" title="ВКонтакте">VK</a>
+                <a href="https://youtube.com/@ddar_design?si=_lRXyLhrLdrykPvh" target="_blank" class="social-btn" title="YouTube">YT</a>
+                <a href="https://t.me/korean_with_ddarya" target="_blank" class="social-btn" title="Telegram-канал">TG-канал</a>
+            </div>
+
+            <button class="btn open-modal" style="background-color: var(--white); color: var(--bordeaux);">ОСТАВИТЬ ЗАЯВКУ</button>
+            
+            <div class="footer-note">
+                © 2026 Дарья. Корейский язык с душой.
+            </div>
+            <div class="footer-links">
+                <a onclick="openPolicy()">Политика конфиденциальности</a> | 
+                <a onclick="openCookiePolicy()">Использование Cookie</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- МОДАЛЬНОЕ ОКНО (ЗАПИСЬ) -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h3>Записаться на занятие</h3>
+            <p>Оставьте свои данные, и я свяжусь с вами для уточнения деталей.</p>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Ваш телефон или Telegram" required>
+                </div>
+                <button type="submit" class="btn">ОТПРАВИТЬ</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО (ПОЛИТИКА) -->
+    <div class="modal-overlay" id="policyModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closePolicy()">&times;</button>
+            <h3>Политика конфиденциальности</h3>
+            <div class="policy-text">
+                <p>Настоящая Политика конфиденциальности описывает, как я собираю, использую и защищаю вашу личную информацию.</p>
+                <h4>1. Какие данные я собираю</h4>
+                <p>Я собираю только те данные, которые вы добровольно предоставляете через форму записи: имя и контактные данные (телефон, Telegram, email).</p>
+                <h4>2. Как я использую данные</h4>
+                <p>Ваши данные используются исключительно для связи с вами по вопросам занятий, отправки материалов и уточнения расписания. Я не передаю их третьим лицам.</p>
+                <h4>3. Защита данных</h4>
+                <p>Я принимаю необходимые меры для защиты ваших персональных данных от несанкционированного доступа.</p>
+                <h4>4. Ваши права</h4>
+                <p>Вы можете в любой момент запросить удаление ваших данных, написав мне в Telegram.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО (COOKIE) -->
+    <div class="modal-overlay" id="cookieModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeCookiePolicy()">&times;</button>
+            <h3>Использование Cookie</h3>
+            <div class="policy-text">
+                <p>Мой сайт использует файлы cookie для улучшения работы и анализа посещаемости.</p>
+                <h4>1. Что такое cookie</h4>
+                <p>Cookie — это небольшие текстовые файлы, которые сохраняются на вашем устройстве при посещении сайта.</p>
+                <h4>2. Как я использую cookie</h4>
+                <p>Я использую cookie для запоминания ваших предпочтений и сбора анонимной статистики (например, через Google Analytics).</p>
+                <h4>3. Управление cookie</h4>
+                <p>Вы можете отключить cookie в настройках вашего браузера, но это может повлиять на работу некоторых функций сайта.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- COOKIE БАННЕР -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p>Мы используем файлы cookie для улучшения работы сайта. Продолжая пользоваться сайтом, вы соглашаетесь с нашей <a href="#" onclick="openCookiePolicy()" style="color: #FADADD;">политикой использования cookie</a>.</p>
+        <button class="btn" onclick="acceptCookies()">ПРИНЯТЬ</button>
+    </div>
+
+    <!-- СКРИПТЫ -->
+    <script>
+        // 1. Анимация появления при скролле
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // 2. Логика модального окна (Запись)
+        const modal = document.getElementById('modal');
+        const openButtons = document.querySelectorAll('.open-modal');
+        const closeButton = document.getElementById('closeModal');
+
+        openButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        closeButton.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // 3. Логика слайдера отзывов
+        const slider = document.getElementById('reviewSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        const getScrollAmount = () => {
+            const card = slider.querySelector('.review-card');
+            return card ? card.offsetWidth + 20 : 300;
+        };
+
+        nextBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+        prevBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+
+        // 4. Логика Cookie баннера
+        const cookieBanner = document.getElementById('cookieBanner');
+        
+        if (!localStorage.getItem('cookiesAccepted')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('show');
+            }, 1500);
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.remove('show');
+        }
+
+        // 5. Логика модальных окон Политики и Cookie
+        const policyModal = document.getElementById('policyModal');
+        const cookieModal = document.getElementById('cookieModal');
+
+        function openPolicy() {
+            policyModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closePolicy() {
+            policyModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function openCookiePolicy() {
+            cookieModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCookiePolicy() {
+            cookieModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        policyModal.addEventListener('click', (e) => { if (e.target === policyModal) closePolicy(); });
+        cookieModal.addEventListener('click', (e) => { if (e.target === cookieModal) closeCookiePolicy(); });
+    </script>
+
+</body>
+</html>
